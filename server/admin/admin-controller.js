@@ -201,12 +201,3 @@ exports.login = (req,res,next)=>{
         });
 
 }
-
-
-//admin add bikes
-exports.addBikes = (req,res,next)=>{
-
-        
-
-
-}

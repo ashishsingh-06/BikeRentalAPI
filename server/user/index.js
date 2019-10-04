@@ -1,5 +1,6 @@
 // require modules
 const express = require('express');
+const passport = require('passport');
 const routes = express.Router();
 
 //user controller
@@ -15,6 +16,9 @@ routes.post('/signup',userController.signup);
 
 //user login route
 routes.post('/login',userController.login);
+
+//user update details
+routes.put('/update/:userId',userController.update);
 
 //get all bikes
 routes.get('/bikes',bikeController.getAllBikes);

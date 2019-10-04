@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('./user-model');
 const bcrypt = require('bcryptjs');
+const Joi = require('joi');
 
 
 //signup
@@ -166,4 +167,43 @@ exports.login = (req,res,next)=>{
                 });
 
             });
-}
+};
+
+// user update
+exports.update = (req,res,next)=>{
+
+        const userId = req.params.userId;
+        const data = req.body;
+
+        const schema = Joi.object().keys({
+
+                name: Joi.string().optional(),
+                phone : Joi.string().optional()
+        });
+
+        Joi.validate(data,schema,(err,value)=>{
+
+                if(value)
+                {
+                    User.findByIdAndUpdate(userId,data,{new:true}).exec()
+                    .then((result)=>{
+
+                        if(result)
+                        {
+                            res.status(200).json({
+                                message : 'data updated',
+                                data : result
+                            });
+                        }
+                    }).catch((err)=>{
+
+                        res.status(500).json({
+
+                                error : err
+                        });
+
+                    });
+                }
+        });
+
+};

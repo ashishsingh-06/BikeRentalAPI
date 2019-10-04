@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const passport = require('passport');
 // bikeModel 
 const Bike = require('./bikes-model');
 

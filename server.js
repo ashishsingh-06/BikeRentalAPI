@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const all_routes = require('express-list-endpoints');
 
+
 // import routes
 const userRoutes = require('./server/user/index');
 const adminRoutes = require('./server/admin/index');
