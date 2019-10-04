@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 
 
 
-// init routes start..
+// init routes
 app.use('/users',userRoutes);
 app.use('/users',bikeRoutes);
 app.use('/admin',adminRoutes);
@@ -50,6 +50,8 @@ const port = process.env.PORT||5000;
 //server
 app.listen(port,()=>{
 
+        console.log('');
+        console.log('');
         console.log(`server running on port ${port}`);
         console.log(all_routes(app));
 });
