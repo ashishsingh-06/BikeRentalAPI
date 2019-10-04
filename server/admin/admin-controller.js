@@ -1,6 +1,7 @@
 const User = require('../user/user-model');
 const Admin = require('../admin/admin-model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // get all users
 exports.Users = (req,res,next)=>{
@@ -172,8 +173,14 @@ exports.login = (req,res,next)=>{
                         }
                         else
                         {
+
+                            const token = jwt.sign({
+                                email : result.email
+                            },"encryption",{expiresIn:"1h"});
+
                             res.status(200).json({
                                 message :  `Welcome ${result.name}`,
+                                token : token,
                                 result : {
                                     add_bikes : 'localhost:5000/admin/addBikes',
                                     get_bikes : 'localhost:5000/admin/bikes',

@@ -2,7 +2,16 @@ const express = require('express');
 const User = require('./user-model');
 const bcrypt = require('bcryptjs');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 
+exports.dashboard = (req,res,next)=>{
+
+        res.status(200).json({
+
+                signup : 'localhost:5000/users/signup',
+                login : 'localhost:5000/users/login'
+        });
+};
 
 //signup
 exports.signup = (req,res,next)=>{
@@ -146,8 +155,19 @@ exports.login = (req,res,next)=>{
                             }
                             else
                             {
+
+                                // creating token
+                                const token = jwt.sign({
+                                    email : result.email
+                                },"encryption",
+                                {
+                                    expiresIn : "1h"
+                                });
+
+                                // sending response along with the token
                                 res.status(200).json({
                                     message :  `Welcome ${result.name}`,
+                                    token : token,
                                     all_bikes : 'localhost:5000/users/bikes'
                                 });
                             }
